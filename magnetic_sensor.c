@@ -1,29 +1,26 @@
 /*
-    Project name : Magnetic Sensor
-    Modified Date: 10-06-2024
+    Project name : Arduino Uno Magnetic Sensor (Hall Effect)
+    Modified Date: 29-06-2024
     Code by : Projectslearner
     Website : https://projectslearner.com/learn/arduino-uno-magnetic-sensor
 */
 
-const int sensorPin = 2; // Digital pin connected to the magnetic sensor
-const int ledPin = 13;   // Digital pin connected to the LED
+// Pin connected to the Hall effect sensor's signal output
+const int sensorPin = 2;
 
 void setup() {
-  pinMode(ledPin, OUTPUT); // Set the LED pin as an output
-  pinMode(sensorPin, INPUT_PULLUP); // Set the sensor pin as an input with internal pull-up resistor
-  Serial.begin(9600); // Initialize serial communication
+  Serial.begin(9600);  // Initialize serial communication
+  pinMode(sensorPin, INPUT_PULLUP);  // Set sensor pin as input with internal pull-up resistor
 }
 
 void loop() {
-  int sensorValue = digitalRead(sensorPin); // Read the digital value from the sensor
-  Serial.print("Sensor value: ");
-  Serial.println(sensorValue); // Print the sensor value to the serial monitor
-  
-  if (sensorValue == LOW) {  // Check if the sensor detects a magnetic field
-    digitalWrite(ledPin, HIGH); // Turn on the LED if the magnetic field is present
+  int sensorValue = digitalRead(sensorPin);  // Read sensor state
+
+  if (sensorValue == LOW) {
+    Serial.println("Magnetic field detected");
   } else {
-    digitalWrite(ledPin, LOW);  // Turn off the LED if the magnetic field is absent
+    Serial.println("No magnetic field");
   }
-  
-  delay(500); // Delay for stability
+
+  delay(500);  // Delay for readability
 }
